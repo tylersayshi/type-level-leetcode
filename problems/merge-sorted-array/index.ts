@@ -24,14 +24,14 @@ type MergeArrays<
   ? [...R, ...B]
   : never;
 
-export type Result1 = MergeArrays<[1, 2, 6], [1, 2, 3]>;
+export type Result1 = MergeArrays<[1, 2, 3], [2, 5, 6]>;
 //           ^?
 
-export type Result2 = MergeArrays<[1, 2, 3], [1, 2, 3]>;
+export type Result2 = MergeArrays<[1], []>;
 //           ^?
 
-export type Result3 = MergeArrays<[4, 5, 6], [1, 2, 3]>;
+export type Result3 = MergeArrays<[0], [1]>;
 //           ^?
 
-export type Result4 = MergeArrays<[1, 2, 3], [4, 5, 6]>;
+export type Result4 = MergeArrays<[4, 5, 6], [1, 2, 3]>;
 //           ^?

@@ -11,17 +11,8 @@ type RemoveElement<Arr extends number[], Ele extends number> = Arr extends [
     : never
   : [];
 
-export type Result1 = RemoveElement<[1, 2, 6, 1], 1>;
+export type Result1 = RemoveElement<[3, 2, 2, 3], 3>;
 //           ^?
 
-export type Result2 = RemoveElement<[1, 1, 2, 3], 1>;
-//           ^?
-
-export type Result3 = RemoveElement<[1, 1, 1], 1>;
-//           ^?
-
-export type Result4 = RemoveElement<[1, 2, 3], 2>;
-//           ^?
-
-export type Result5 = RemoveElement<[1, 1, 1], 2>;
+export type Result2 = RemoveElement<[0, 1, 2, 2, 3, 0, 4, 2], 2>;
 //           ^?
