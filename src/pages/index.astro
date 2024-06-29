@@ -1,0 +1,19 @@
+---
+
+import PageLayout from "../layouts/PageLayout.astro";
+import ProblemView from "../components/ProblemView.astro";
+import Container from "@components/Container.astro";
+
+import { SITE } from "@consts";
+
+import { readdir } from "node:fs/promises";
+
+const allProblems = (await readdir(`${process.cwd()}/problems`)).map(problem => problem.replace('.ts', ''));
+
+---
+
+<PageLayout title={SITE.NAME} description={SITE.DESCRIPTION}>
+ <Container>
+   {allProblems.map(problem => <ProblemView name={problem} />)}
+ </Container>
+</PageLayout>

@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["Leetcode"]
+  "cSpell.words": ["Leetcode"],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

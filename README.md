@@ -16,13 +16,16 @@ bun install
 
 **To Add a New Problem:**
 
+Add a new problem solution into the `problems` folder. Make sure the filename matches the url of the corresponding leetcode link.
+
+For example: `problems/merge-sorted-array.ts` for https://leetcode.com/problems/merge-sorted-array
+
+To see the generated site and view all of the solutions:
+
 ```sh
-bun leet
+bun install
+bun dev
 ```
-
-Paste in a url like this: `https://leetcode.com/problems/best-time-to-buy-and-sell-stock/?envType=study-plan-v2&envId=top-interview-150`
-
-Your problem folder will now be set and ready to go in `src/best-time-to-buy-and-sell-stock`!
 
 ## Credits
 

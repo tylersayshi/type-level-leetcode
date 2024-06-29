@@ -1,0 +1,13 @@
+---
+type Props = {
+  name: string;
+};
+
+import { readFile } from "node:fs/promises";
+
+const { name } = Astro.props;
+
+const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
+---
+
+<pre>{fileText}</pre>
