@@ -9,7 +9,7 @@ const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 const addProblem = async (problemId: string, url: string) => {
   console.log(`\nAdding ${problemId} 🥳\n`);
 
-  const basePath = `${process.cwd()}/src/${problemId}`;
+  const basePath = `${process.cwd()}/problems/${problemId}`;
 
   const problemName = problemId.split("-").map(capitalize).join(" ");
 
