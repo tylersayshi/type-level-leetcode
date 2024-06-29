@@ -9,6 +9,7 @@
     "@types/bun": "latest",
     "bun-promptx": "^0.2.0",
     "dedent": "^1.5.3",
+    "raw-loader": "^4.0.2",
     "type-samurai": "^1.1.1",
     "typescript": "^5.0.0"
   }
