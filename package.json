@@ -2,17 +2,14 @@
   "name": "type-level-leetcode",
   "module": "index.ts",
   "type": "module",
-  "scripts": {
-    "dev": "bun --watch index.ts"
+  "bin": {
+    "leet": "./bin/leet.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "type-samurai": "^1.1.1"
-  },
-  "peerDependencies": {
+    "bun-promptx": "^0.2.0",
+    "dedent": "^1.5.3",
+    "type-samurai": "^1.1.1",
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "type-fest": "^4.20.1"
   }
 }
