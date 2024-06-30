@@ -3,7 +3,7 @@ import type { IsGreaterThan, IsEmptyArray } from "flat-type-samurai";
 type MergeArrays<
   A extends number[],
   B extends number[],
-  R extends number[] = []
+  R extends number[] = [],
 > = A extends [infer A1, ...infer ARest]
   ? B extends [infer B1, ...infer BRest]
     ? A1 extends number
@@ -18,11 +18,11 @@ type MergeArrays<
         : never
       : never
     : IsEmptyArray<B> extends true
-    ? [...R, A1, ...ARest]
-    : never
+      ? [...R, A1, ...ARest]
+      : never
   : IsEmptyArray<A> extends true
-  ? [...R, ...B]
-  : never;
+    ? [...R, ...B]
+    : never;
 
 export type Result1 = MergeArrays<[1, 2, 3], [2, 5, 6]>;
 //           ^?

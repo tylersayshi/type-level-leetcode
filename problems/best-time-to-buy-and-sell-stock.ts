@@ -1,11 +1,4 @@
-import type {
-  IsGreaterThan,
-  IsLowerThan,
-  Sum,
-  Negate,
-} from "flat-type-samurai";
-
-type Minus<A extends number, B extends number> = Sum<A, Negate<B>>;
+import type { IsGreaterThan, IsLowerThan, Minus } from "flat-type-samurai";
 
 type MaxProfit<
   Prices extends number[],
