@@ -4,16 +4,8 @@ import type {
   IsLowerThan,
   Mult,
   LastCharacter,
-  Split,
-  Slice,
-  Join,
-  IsEmptyArray,
 } from "flat-type-samurai";
-
-type TrimLastChar<
-  T extends string,
-  S extends string[] = Slice<Split<T, "">, 0, -1>,
-> = IsEmptyArray<S> extends true ? "" : Join<S, "">;
+import type { LastCharacterWithRest } from "utils";
 
 type LetterToInt<T extends string> = T extends "I"
   ? 1
@@ -37,9 +29,11 @@ type NewResult<
   Num extends number = LetterToInt<Char>,
 > = IsLowerThan<Mult<4, Num>, R> extends true ? Minus<R, Num> : Sum<R, Num>;
 
-type RomanToInt<Roman extends string, R extends number = 0> = Roman extends ""
-  ? R
-  : RomanToInt<TrimLastChar<Roman>, NewResult<LastCharacter<Roman>, R>>;
+type RomanToInt<
+  Roman extends string,
+  R extends number = 0,
+  L extends [string, string] = LastCharacterWithRest<Roman>,
+> = Roman extends "" ? R : RomanToInt<L[1], NewResult<L[0], R>>;
 
 export type Result1 = RomanToInt<"III">;
 //           ^?
