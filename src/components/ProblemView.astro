@@ -14,9 +14,11 @@ const { name } = Astro.props;
 
 const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
 
-const html = await codeToHtml(fileText.toString(), {
+const tsCode = fileText.toString();
+
+const html = await codeToHtml(tsCode, {
   lang: "ts",
-  theme: "vitesse-dark",
+  theme: "github-dark-dimmed",
   transformers: [
     transformerTwoslash({
       renderer: rendererClassic(),
@@ -59,19 +61,88 @@ const dtsFileText = (
 ).toString();
 ---
 
+<script>
+  const copyButton = document.getElementById("copy-button");
+
+  if (copyButton) {
+    const handleClick = (e: MouseEvent) => {
+      if (copyButton.dataset.copyText) {
+        try {
+          navigator.clipboard.writeText(copyButton.dataset.copyText);
+          copyButton.parentElement?.classList.add("active");
+          setTimeout(() => {
+            copyButton.parentElement?.classList.remove("active");
+          }, 1000);
+        } catch (e) {
+          console.log("error copying", e);
+        }
+      }
+    };
+    copyButton.addEventListener("click", handleClick);
+  }
+</script>
+
 <style>
   .code-wrapper :global(pre) {
     @apply rounded-lg p-5;
+  }
+
+  .copy-text button:active {
+    @apply bg-blue-500;
+  }
+  .copy-text button::before {
+    content: "Copied!";
+    @apply absolute right-10 top-0 rounded-2xl bg-green-600 p-2.5 text-sm font-bold opacity-0 transition-opacity duration-300 ease-in-out;
+  }
+  .copy-text button:after {
+    content: "";
+    @apply absolute right-8 top-3.5 h-0 w-0 border-b-[6px] border-l-[8px] border-t-[6px] border-b-transparent border-l-green-600 border-t-transparent opacity-0 transition-opacity duration-300 ease-in-out;
+  }
+  .copy-text.active button:before,
+  .copy-text.active button:after {
+    @apply translate-y-0 opacity-100;
   }
 </style>
 
 <div>
   <div class="mb-2 flex justify-between">
     <h2 class="text-2xl font-bold">{title}</h2>
-    <Link href={leetCodeUrl} external>Original Problem</Link>
+    <Link href={leetCodeUrl} external className="mr-2 h-6 w-6"
+      ><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+        ><title>LeetCode</title><path
+          fill="currentColor"
+          d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"
+        ></path></svg
+      ></Link
+    >
   </div>
 
-  <div class="code-wrapper">
+  <div class="code-wrapper group relative">
+    <div class="absolute right-2 top-2 z-10">
+      <div class="copy-text relative">
+        <button
+          class="rounded-md p-1.5 opacity-0 transition-opacity duration-300 ease-in-out hover:bg-black/10 group-hover:opacity-100 dark:hover:bg-white/10"
+          id="copy-button"
+          data-copy-text={tsCode}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-clipboard"
+            ><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path
+              d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+            ></path></svg
+          >
+        </button>
+      </div>
+    </div>
     <Fragment set:html={html} />
   </div>
 </div>
