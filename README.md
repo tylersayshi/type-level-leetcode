@@ -1,6 +1,6 @@
 # type-level-leetcode
 
-Silly problems for silly solutions.
+Silly solutions for silly problems.
 
 <img src="./ralf.gif" />
 
