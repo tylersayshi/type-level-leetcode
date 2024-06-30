@@ -1,4 +1,4 @@
-import type { IsGreaterThan, IsEmptyArray } from "type-samurai";
+import type { IsGreaterThan, IsEmptyArray } from "flat-type-samurai";
 
 type MergeArrays<
   A extends number[],

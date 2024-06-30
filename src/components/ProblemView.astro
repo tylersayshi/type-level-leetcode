@@ -4,10 +4,13 @@ type Props = {
 };
 
 import { readFile } from "node:fs/promises";
+import { Editor } from "./Editor";
 
 const { name } = Astro.props;
 
 const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
+
+const dtsFileText = (await readFile(`${process.cwd()}/node_modules/flat-type-samurai/dist/index.d.ts`)).toString();
 ---
 
-<pre>{fileText}</pre>
+<Editor client:only="react" startValue={fileText.toString()} dtsFile={dtsFileText} />

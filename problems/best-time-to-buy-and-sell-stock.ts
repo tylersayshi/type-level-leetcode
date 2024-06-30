@@ -1,4 +1,9 @@
-import type { IsGreaterThan, IsLowerThan, Sum, Negate } from "type-samurai";
+import type {
+  IsGreaterThan,
+  IsLowerThan,
+  Sum,
+  Negate,
+} from "flat-type-samurai";
 
 type Minus<A extends number, B extends number> = Sum<A, Negate<B>>;
 
