@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pretty": "prettier --check src",
+    "pretty:fix": "prettier --write src"
   },
   "devDependencies": {
     "@astrojs/check": "^0.7.0",
@@ -22,6 +24,9 @@
     "astro": "^4.11.3",
     "dedent": "^1.5.3",
     "flat-type-samurai": "^0.1.2",
+    "prettier": "^3.3.2",
+    "prettier-plugin-astro": "^0.14.0",
+    "prettier-plugin-tailwindcss": "^0.6.5",
     "raw-loader": "^4.0.2",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",

@@ -21,25 +21,24 @@ export const Editor: React.FC<{
   }, []);
 
   const handleEditorWillMount: MonacoEditorProps["beforeMount"] = async (
-    monaco
+    monaco,
   ) => {
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       `declare module 'flat-type-samurai' {
          ${dtsFile}
       }`,
-      "file:///node_modules/@types/flat-type-samurai/index.d.ts"
+      "file:///node_modules/@types/flat-type-samurai/index.d.ts",
     );
   };
 
   return (
     <MonacoEditor
       className={className}
-      height="400px"
+      height={600}
       defaultLanguage="typescript"
       defaultValue={startValue}
       theme={theme}
       beforeMount={handleEditorWillMount}
-      options={{}}
     />
   );
 };

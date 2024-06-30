@@ -1,5 +1,4 @@
 ---
-
 import PageLayout from "../layouts/PageLayout.astro";
 import ProblemView from "../components/ProblemView.astro";
 import Container from "@components/Container.astro";
@@ -8,14 +7,26 @@ import { SITE } from "@consts";
 
 import { readdir } from "node:fs/promises";
 
-const allProblems = (await readdir(`${process.cwd()}/problems`)).map(problem => problem.replace('.ts', ''));
-
+const allProblems = (await readdir(`${process.cwd()}/problems`)).map(
+  (problem) => problem.replace(".ts", ""),
+);
 ---
 
 <PageLayout title={SITE.NAME} description={SITE.DESCRIPTION}>
- <Container>
-   <div class="flex gap-4 flex-col">
-   {allProblems.map(problem => <ProblemView name={problem} />)}
-  </div>
- </Container>
+  <Container>
+    <div
+      class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4"
+      role="alert"
+    >
+      <p class="font-bold">Reader Be Warned</p>
+      <p>
+        Solving leetcode problems is not a good idea. Solving them at the type
+        level is a worse idea.
+      </p>
+    </div>
+
+    <div class="flex gap-5 flex-col">
+      {allProblems.map((problem) => <ProblemView name={problem} />)}
+    </div>
+  </Container>
 </PageLayout>

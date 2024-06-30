@@ -8,9 +8,25 @@ import { Editor } from "./Editor";
 
 const { name } = Astro.props;
 
+const title = name
+  .split("-")
+  .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+  .join(" ");
+
 const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
 
-const dtsFileText = (await readFile(`${process.cwd()}/node_modules/flat-type-samurai/dist/index.d.ts`)).toString();
+const dtsFileText = (
+  await readFile(
+    `${process.cwd()}/node_modules/flat-type-samurai/dist/index.d.ts`,
+  )
+).toString();
 ---
 
-<Editor client:only="react" startValue={fileText.toString()} dtsFile={dtsFileText} />
+<div>
+  <h2 class="mb-2 text-2xl font-bold">{title}</h2>
+  <Editor
+    client:only="react"
+    startValue={fileText.toString()}
+    dtsFile={dtsFileText}
+  />
+</div>
