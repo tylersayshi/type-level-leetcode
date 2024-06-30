@@ -2,6 +2,8 @@
 
 Silly solutions for silly problems.
 
+Every solution is O(1) because types don't exist at runtime.
+
 <img src="./ralf.gif" />
 
 ## Motivation
