@@ -5,6 +5,7 @@ type Props = {
 
 import { readFile } from "node:fs/promises";
 import { Editor } from "./Editor";
+import Link from "./Link.astro";
 
 const { name } = Astro.props;
 
@@ -15,6 +16,8 @@ const title = name
 
 const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
 
+const leetCodeUrl = `https://leetcode.com/problems/${name}`;
+
 const dtsFileText = (
   await readFile(
     `${process.cwd()}/node_modules/flat-type-samurai/dist/index.d.ts`,
@@ -23,7 +26,10 @@ const dtsFileText = (
 ---
 
 <div>
-  <h2 class="mb-2 text-2xl font-bold">{title}</h2>
+  <div class="mb-2 flex justify-between">
+    <h2 class="text-2xl font-bold">{title}</h2>
+    <Link href={leetCodeUrl} external>Original Problem</Link>
+  </div>
   <Editor
     client:only="react"
     startValue={fileText.toString()}
