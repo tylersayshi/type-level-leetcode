@@ -19,6 +19,7 @@
     "@fontsource/inter": "^5.0.18",
     "@fontsource/lora": "^5.0.17",
     "@monaco-editor/react": "^4.6.0",
+    "@shikijs/twoslash": "^1.10.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/bun": "latest",
     "astro": "^4.11.3",
@@ -28,6 +29,7 @@
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "raw-loader": "^4.0.2",
+    "shiki": "^1.10.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.0.0"

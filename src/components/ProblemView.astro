@@ -4,10 +4,25 @@ type Props = {
 };
 
 import { readFile } from "node:fs/promises";
-import { Editor } from "./Editor";
 import Link from "./Link.astro";
 
+import { codeToHtml } from "shiki";
+import { transformerTwoslash, rendererClassic } from "@shikijs/twoslash";
+import "@shikijs/twoslash/style-classic.css";
+
 const { name } = Astro.props;
+
+const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
+
+const html = await codeToHtml(fileText.toString(), {
+  lang: "ts",
+  theme: "vitesse-dark",
+  transformers: [
+    transformerTwoslash({
+      renderer: rendererClassic(),
+    }),
+  ],
+});
 
 let title = name
   .split("-")
@@ -35,8 +50,6 @@ try {
   console.log("error fetching title", e);
 }
 
-const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
-
 const leetCodeUrl = `https://leetcode.com/problems/${name}`;
 
 const dtsFileText = (
@@ -46,14 +59,19 @@ const dtsFileText = (
 ).toString();
 ---
 
+<style>
+  .code-wrapper :global(pre) {
+    @apply rounded-lg p-5;
+  }
+</style>
+
 <div>
   <div class="mb-2 flex justify-between">
     <h2 class="text-2xl font-bold">{title}</h2>
     <Link href={leetCodeUrl} external>Original Problem</Link>
   </div>
-  <Editor
-    client:only="react"
-    startValue={fileText.toString()}
-    dtsFile={dtsFileText}
-  />
+
+  <div class="code-wrapper">
+    <Fragment set:html={html} />
+  </div>
 </div>

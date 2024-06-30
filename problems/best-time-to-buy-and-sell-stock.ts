@@ -10,7 +10,7 @@ type Minus<A extends number, B extends number> = Sum<A, Negate<B>>;
 type MaxProfit<
   Prices extends number[],
   Profit extends number = 0,
-  MinPrice extends number = 10e4
+  MinPrice extends number = 10e4,
 > = Prices extends [infer Head, ...infer Tail]
   ? Head extends number
     ? MinPrice extends number
@@ -18,8 +18,8 @@ type MaxProfit<
         ? IsLowerThan<Head, MinPrice> extends true
           ? MaxProfit<Tail, Profit, Head>
           : IsGreaterThan<Minus<Head, MinPrice>, Profit> extends true
-          ? MaxProfit<Tail, Minus<Head, MinPrice>, MinPrice>
-          : MaxProfit<Tail, Profit, MinPrice>
+            ? MaxProfit<Tail, Minus<Head, MinPrice>, MinPrice>
+            : MaxProfit<Tail, Profit, MinPrice>
         : never
       : never
     : never
