@@ -36,7 +36,6 @@ type NextDirection<Dir extends "up" | "right" | "down" | "left"> =
   : Dir extends "down" ? "left"
   : "up";
 
-// todo need to break out of loop when N is 0
 type MoveForSteps<
   N extends number,
   Pos extends [number, number],
