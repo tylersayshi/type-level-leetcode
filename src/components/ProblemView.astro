@@ -15,8 +15,10 @@ const { name } = Astro.props;
 const fileText = await readFile(`${process.cwd()}/problems/${name}.ts`);
 
 const tsCode = fileText.toString();
-
-const html = await codeToHtml(tsCode, {
+const cleanCode = tsCode
+  .replaceAll("export type", "type")
+  .replaceAll("//           ^?", "//   ^?");
+const html = await codeToHtml(cleanCode, {
   lang: "ts",
   theme: "vitesse-dark",
   transformers: [
