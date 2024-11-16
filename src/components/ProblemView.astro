@@ -49,39 +49,37 @@ try {
   });
 
   const json = await req.json();
-  title = json.data.question.title;
-  isOnLeetCode = true;
+  if (json?.data?.question?.title) {
+    title = json.data.question.title;
+    isOnLeetCode = true;
+  }
 } catch (e) {
   console.log("error fetching title", e);
 }
 
 const leetCodeUrl = `https://leetcode.com/problems/${name}`;
-
-const dtsFileText = (
-  await readFile(
-    `${process.cwd()}/node_modules/flat-type-samurai/dist/index.d.ts`,
-  )
-).toString();
 ---
 
 <script>
-  const copyButton = document.getElementById("copy-button");
+  const copyButtons = document.getElementsByClassName("special-copy-button");
 
-  if (copyButton) {
+  for (let i = 0; i < copyButtons.length; i++) {
+    const button = copyButtons.item(i)! as HTMLButtonElement;
     const handleClick = (e: MouseEvent) => {
-      if (copyButton.dataset.copyText) {
+      if (button.dataset.copyText) {
         try {
-          navigator.clipboard.writeText(copyButton.dataset.copyText);
-          copyButton.parentElement?.classList.add("active");
+          navigator.clipboard.writeText(button.dataset.copyText);
+          button.parentElement?.classList.add("active");
           setTimeout(() => {
-            copyButton.parentElement?.classList.remove("active");
+            button.parentElement?.classList.remove("active");
           }, 1000);
         } catch (e) {
           console.log("error copying", e);
         }
       }
     };
-    copyButton.addEventListener("click", handleClick);
+
+    button.addEventListener("click", handleClick);
   }
 </script>
 
@@ -135,8 +133,7 @@ const dtsFileText = (
     <div class="absolute right-2 top-2 z-10">
       <div class="copy-text relative">
         <button
-          class="rounded-md p-1.5 opacity-0 transition-opacity duration-300 ease-in-out hover:bg-black/10 group-hover:opacity-100 dark:hover:bg-white/10"
-          id="copy-button"
+          class="special-copy-button rounded-md p-1.5 opacity-0 transition-opacity duration-300 ease-in-out hover:bg-black/10 group-hover:opacity-100 dark:hover:bg-white/10"
           data-copy-text={tsCode}
         >
           <svg
