@@ -1,14 +1,8 @@
-type RemoveElement<Arr extends number[], Ele extends number> = Arr extends [
-  infer Head,
-  ...infer Tail
-]
-  ? Head extends Ele
-    ? Tail extends number[]
-      ? RemoveElement<Tail, Ele>
-      : Tail
-    : Tail extends number[]
-    ? [Head, ...RemoveElement<Tail, Ele>]
-    : never
+type RemoveElement<Arr extends number[], Ele extends number> =
+  Arr extends [infer Head, ...infer Tail extends number[]] ?
+    Head extends Ele ?
+      RemoveElement<Tail, Ele>
+    : [Head, ...RemoveElement<Tail, Ele>]
   : [];
 
 export type Result1 = RemoveElement<[3, 2, 2, 3], 3>;

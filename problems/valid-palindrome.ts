@@ -21,25 +21,23 @@ type ValidEndChars<
   First extends [string, string] = FirstCharacterWithRest<T>,
   Last extends [string, string] = LastCharacterWithRest<First[1]>,
 > =
-  And<IsAlphaNumeric<First[0]>, IsAlphaNumeric<Last[0]>> extends true
-    ? IsEqual<First[0], Last[0]>
-    : false;
+  And<IsAlphaNumeric<First[0]>, IsAlphaNumeric<Last[0]>> extends true ?
+    IsEqual<First[0], Last[0]>
+  : false;
 
-type TrimEnds<T extends string> = T extends `${string}${infer Rest}`
-  ? LastCharacterWithRest<Rest>[1]
-  : T;
+type TrimEnds<T extends string> =
+  T extends `${string}${infer Rest}` ? LastCharacterWithRest<Rest>[1] : T;
 
-type _IsPalindrome<T extends string> = T extends ""
-  ? true
-  : StringLength<T> extends 1 | 2
-    ? true
-    : ValidEndChars<T> extends true
-      ? _IsPalindrome<TrimEnds<T>>
-      : false;
+type _IsPalindrome<T extends string> =
+  T extends "" ? true
+  : StringLength<T> extends 1 | 2 ? true
+  : ValidEndChars<T> extends true ? _IsPalindrome<TrimEnds<T>>
+  : false;
 
-type Clean<T extends string> = T extends `${infer First}${infer Rest}`
-  ? IsAlphaNumeric<First> extends true
-    ? `${Lowercase<First>}${Clean<Rest>}`
+type Clean<T extends string> =
+  T extends `${infer First}${infer Rest}` ?
+    IsAlphaNumeric<First> extends true ?
+      `${Lowercase<First>}${Clean<Rest>}`
     : Clean<Rest>
   : T;
 
